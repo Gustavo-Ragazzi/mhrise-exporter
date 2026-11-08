@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mhrise-exporter"
+version = "0.1.0"
+description = "Offline talisman / Qurious armor exporter for Monster Hunter Rise: Sunbreak (Steam saves)"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+dependencies = [
+    "pycryptodome>=3.18",
+    "zstandard>=0.21; python_version < '3.14'",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "pyinstaller>=6"]
+
+[project.scripts]
+mhrise-exporter = "mhrise_exporter.cli:main"
+
+[tool.setuptools]
+packages = ["mhrise_exporter"]

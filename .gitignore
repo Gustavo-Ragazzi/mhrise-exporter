@@ -1,0 +1,18 @@
+# Python / tooling
+.venv/
+.build-venv/
+__pycache__/
+*.egg-info/
+.pytest_cache/
+
+# Build output (executables are published via GitHub releases)
+build/
+dist/
+
+# Personal data: exports and save files must never be committed
+out/
+Exported*.txt
+*_ExportedTalismans.txt
+*_ExportedQuriousArmors.txt
+*.bin
+gamedata.json
