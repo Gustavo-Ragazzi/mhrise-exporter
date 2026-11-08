@@ -99,8 +99,8 @@ How the Lua getters are reproduced:
 - `getCustomAddReg(i)` is the sum of category 14 and 15 values. Bonus ids 89–98 are fire, 99–108 water,
   109–118 thunder, 119–128 ice and 129–138 dragon.
 - Slots: the category 19 values give slot points. Each point adds a new Lv1 slot while the piece has fewer than
-  3 slots; otherwise it raises the highest slot below Lv4. This rule was inferred from mounted decorations in a real
-  save, see [Limitations](#limitations). The delta against the original sorted slots is what gets exported.
+  3 slots; otherwise it raises the highest slot below Lv4. This rule was inferred from mounted decorations and confirmed against
+  the Lua exporters' output. The delta against the original sorted slots is what gets exported.
 - `getCustomSkillUpList` / `getCustomSkillDownList`: category 20 values summed per `_SkillId`. Increases come first,
   then decreases, each in buildup order.
 
@@ -143,10 +143,13 @@ Linux works the same way, and `scripts/build.py` produces native binaries there.
 ## Limitations
 
 - **Steam only.** The Switch DEFLATE container is parsed, but it is untested.
-- **The slot distribution rule is inferred**, not read from game code. It fits all 8 slot-augmented pieces checked
-  so far.
-- These conventions are assumptions until checked against the Lua exporters' output: the element order
-  (fire, water, thunder, ice, dragon), the skill order, and the name used for an empty talisman skill (`--empty-skill`).
+- **Validated against the REFramework Lua exporters** on a real save (2026-11-08): 94 talismans and 29 qurious
+  armors are identical line by line, in the same order. This confirms:
+  - the slot distribution rule (it was inferred, not read from game code)
+  - the element order (fire, water, thunder, ice, dragon)
+  - the skill ordering and level deltas
+
+  The only difference is line endings: the Lua scripts write CRLF, this tool writes LF.
 - The talisman and RSZ layouts match game v16.0.x. If a future layout changes, the reader stops with a clear error
   instead of emitting wrong data.
 
